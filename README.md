@@ -13,5 +13,5 @@ The Project is divided in three parts:
 
 - Petros Tamvakis
 - Vasileios Filippidis
-- Anastasios Katsanounis
+- Anastasios Katsaounis
 

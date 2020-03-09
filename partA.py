@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
@@ -15,38 +16,71 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn import preprocessing
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import LocalOutlierFactor
 
 
 data = pd.read_csv('arrhythmia.data',header=None)
 
 data.shape
 
-data.dtypes
+data.info()
 
 pd.isna(data).sum().sum()
 
-data=data.replace('?',np.NaN)
+data1 = data.apply(pd.to_numeric, errors='coerce')
 
-data.describe().append(data.nunique().to_frame('nunique').T)
+pd.isna(data1).sum().sum()
 
-classes=data[279]
-attr=data.iloc[:,:279]
+pd.isna(data1[13]).sum()
+
+del data[13]
+
+#data=data.replace('?',np.NaN)
+
+classes=data1[279]
+attr=data1.iloc[:,:279]
 
 classes.replace(1,0,inplace=True)
 classes.replace(list(range(2,17)),1,inplace=True)
 
-for i in range(attr.shape[1]):
-    attr[i].fillna(data[i].median(),inplace=True)
+attr.columns = list(range(attr.shape[1]))
 
+for i in range(attr.shape[1]):
+    attr[i].fillna(attr[i].median(),inplace=True)
+
+attr.info()
 
 pca = PCA(n_components=30, svd_solver='full')
 
 attrReduced=pca.fit(attr).transform(attr)
 
-print('Components kept: 30\nExplained variance=',pca.explained_variance_ratio_.sum())  
+print('Components kept: 30\nExplained variance=',pca.explained_variance_ratio_.sum())
 
+# outlier detection/visualization
+
+ax = plt.figure(figsize=(12, 5)).gca(title='Attribute Distribution', 
+                                     xlabel='Values', ylabel='Attributes')
+flierprops = dict(markerfacecolor='0.75', markersize=5, linestyle='none')
+whiskerprops = capprops = dict(c='white')
+sns.boxplot(data=attrReduced, orient='horizontal', 
+    flierprops=flierprops, whiskerprops=whiskerprops, capprops=capprops);      
+
+threshold = 2.5
+
+for i in range(attrReduced.shape[1]):
+    zscore = stats.zscore(attrReduced[:,i])
+    median = np.nanmedian(attrReduced[:,i])
+    attrReduced[:,i] = np.where(np.abs(zscore) < threshold,attrReduced[:,i],median)
+
+ax = plt.figure(figsize=(12, 5)).gca(title='Attribute Distribution', 
+                                     xlabel='Values', ylabel='Attributes')
+flierprops = dict(markerfacecolor='0.75', markersize=5, linestyle='none')
+whiskerprops = capprops = dict(c='white')
+sns.boxplot(data=attrReduced, orient='horizontal', 
+    flierprops=flierprops, whiskerprops=whiskerprops, capprops=capprops); 
+            
 # split the data sets into training and tests
-x_train, x_test, y_train, y_test = train_test_split (attrReduced,classes, test_size=0.35, random_state=1)
+x_train, x_test, y_train, y_test = train_test_split (attrReduced,classes, test_size=0.50, random_state=1)
 
 
 clfANN = MLPClassifier(solver='adam', activation='relu',

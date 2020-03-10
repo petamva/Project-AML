@@ -7,11 +7,12 @@ The Project is divided in three parts:
 
 - Part A: Classification
 - Part B: Clustering
-- Part C: Frequent itemsets
+- Part C: Regression
+- Part D: Frequent itemsets
 
 **Students responsible for the project:**
 
 - Petros Tamvakis
 - Vasileios Filippidis
-- Anastasios Katsanounis
+- Anastasios Katsaounis
 

@@ -13,10 +13,9 @@ from sklearn.metrics import roc_curve, auc
 from sklearn.naive_bayes import GaussianNB
 from sklearn import tree
 from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn import preprocessing
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.neighbors import LocalOutlierFactor
+
 
 
 data = pd.read_csv('arrhythmia.data',header=None)

@@ -1,8 +1,8 @@
 finalProject.R
 patients.csv
 project.py
-ROC Curve.png
 testing.py
 arrhythmia.data
 arrhythmia.names
 Wholesale customers data.csv
+.gitignore

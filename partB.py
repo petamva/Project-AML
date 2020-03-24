@@ -13,7 +13,7 @@ from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import StandardScaler
 
 # preprocessing
-data = pd.read_csv('Wholesale customers data.csv',header=0)
+data = pd.read_csv(r'D:\Ms Data Science\ITC6003 Applied Machine learning\Project\Wholesale customers data.csv',header=0)
 data.shape
 data.info()
 data.describe().append(data.nunique().to_frame('nunique').T)

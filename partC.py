@@ -133,6 +133,14 @@ mseP = mean_squared_error(y_cvP, predP)
 mseRidge = mean_squared_error(y_cv, predRidge)
 mseLasso = mean_squared_error(y_cv, predLasso)
 
+#--------RMSE
+
+rmse = mean_squared_error(y_cv, pred, squared=False)
+rmsePCA = mean_squared_error(y_cvPCA, predPCA, squared=False)
+rmseP = mean_squared_error(y_cvP, predP, squared=False)
+rmseRidge = mean_squared_error(y_cv, predRidge, squared=False)
+rmseLasso = mean_squared_error(y_cv, predLasso, squared=False)
+
 #------MAE
 
 mse = mean_absolute_error(y_cv, pred)
@@ -151,6 +159,9 @@ R2_Ridge = r2_score(y_cv, predRidge)
 R2_Lasso = r2_score(y_cv, predLasso)
 
 
+#-----Coefficient List
+CoeffList = [lregr.coef_,lregrPCA.coef_,regrPoly.coef_,ridgeReg.coef_,lassoReg.coef_]
 
-# regr.coef_
-# regr.intercept_
+#-----Interceptor List
+IntercList = [lregr.intercept_,lregrPCA.intercept_,regrPoly.intercept_,ridgeReg.intercept_,lassoReg.intercept_]
+

@@ -48,6 +48,7 @@ target=dataProcessed[:,0]
 dataFeatures = dataProcessed[:,1:]
 
 #------Feature correlation to target
+
  
 fig = plt.figure()
 
@@ -139,6 +140,8 @@ msePCA = mean_absolute_error(y_cvPCA, predPCA)
 mseP = mean_absolute_error(y_cvP, predP)
 mseRidge = mean_absolute_error(y_cv, predRidge)
 mseLasso = mean_absolute_error(y_cv, predLasso)
+
+# rmse  mean_squared_error(Ypca_test, PredLinearPCA, squared=False)
 
 #-----R2
 R2_Linear = r2_score(y_cv, pred)

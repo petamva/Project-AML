@@ -1,8 +1,10 @@
-finalProject.R
+houseData.csv
 patients.csv
 project.py
 testing.py
 arrhythmia.data
 arrhythmia.names
 Wholesale customers data.csv
-.gitignore
+dataset-README.txt
+yoochoose-buys.dat
+yoochoose-clicks.dat

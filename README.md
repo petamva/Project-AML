@@ -8,7 +8,7 @@ The Project is divided in three parts:
 - Part A: Classification
 - Part B: Clustering
 - Part C: Regression
-- Part D: Frequent itemsets
+- Part D: Predict buy
 
 **Students responsible for the project:**
 

@@ -57,7 +57,7 @@ fig = plt.figure()
 for i in range(dataFeatures.shape[1]):
     ax = fig.add_subplot(4,4,i+1)
     ax.scatter(dataFeatures[:,i], target, s=0.1, alpha = 0.5,color='black')
-    plt.xlabel(features[i+1])
+    plt.xlabel(features[i])
     plt.ylabel("Price")
     
 plt.tight_layout()

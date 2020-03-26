@@ -27,6 +27,8 @@ dataReduced = data.drop(['id','date','waterfront','yr_renovated','zipcode','lat'
 
 features = dataReduced.columns.tolist()
 
+features.pop(0)
+
 dataReduced.describe().append(dataReduced.nunique().to_frame('nunique').T)
 
 dataReduced.info()
@@ -124,6 +126,12 @@ lassoReg.fit(house_train, y_train)
 predRidge = ridgeReg.predict(house_cv)
 predLasso = lassoReg.predict(house_cv)
 
+#--- Residual plot
+
+x_plot = plt.scatter(pred, (pred - y_cv), s=0.1, alpha = 0.5,c='black')
+plt.hlines(y=0, xmin= -2, xmax=2.5,color='red',linewidth=1)
+plt.title('Residual plot')
+
 
 #--------MSE
 
@@ -161,6 +169,17 @@ R2_Lasso = r2_score(y_cv, predLasso)
 
 #-----Coefficient List
 CoeffList = [lregr.coef_,lregrPCA.coef_,regrPoly.coef_,ridgeReg.coef_,lassoReg.coef_]
+
+#--- Plot coefficients
+fig, axs = plt.subplots(1,3, figsize=(10,2))
+coef = pd.Series(lregr.coef_,features).sort_values()
+coef.plot(ax=axs[0],kind='bar', title='Polynomial')
+coef = pd.Series(ridgeReg.coef_,features).sort_values()
+coef.plot(ax=axs[1],kind='bar', title='Ridge')
+coef = pd.Series(lassoReg.coef_,features).sort_values()
+coef.plot(ax=axs[2],kind='line', title='Lasso')
+plt.savefig('Coefficients.png', bbox_inches='tight')
+
 
 #-----Interceptor List
 IntercList = [lregr.intercept_,lregrPCA.intercept_,regrPoly.intercept_,ridgeReg.intercept_,lassoReg.intercept_]

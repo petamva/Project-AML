@@ -16,8 +16,6 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
 
-
-
 data = pd.read_csv('arrhythmia.data',header=None)
 
 data.shape
@@ -36,8 +34,8 @@ del data[13]
 
 #data=data.replace('?',np.NaN)
 
-classes=data1[279]
-attr=data1.iloc[:,:279]
+classes = data1[279]
+attr = data1.iloc[:,:279]
 
 classes.replace(1,0,inplace=True)
 classes.replace(list(range(2,17)),1,inplace=True)

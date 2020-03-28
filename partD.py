@@ -64,7 +64,7 @@ sessions = sessions[['SessionId', 'Clicks', 'clickedItems', 'Weekday','Hour','Pu
 sessions['Purchase'] = (sessions['Purchase'] !=0).astype(np.int8)
 #--- Fun time: plot hour,weekday vs buying rate
 #--- this shows us which hours and weekdays are more active 
-fig, axs = plt.subplots(1, 2, figsize=(5, 3))
+fig, axs = plt.subplots(1, 2, figsize=(10,4))
 #fig.subplots_adjust(hspace=.01)
 buyRateHour = sessions.groupby('Hour')['Purchase'].mean()
 buyRateHour.sort_index().plot(ax=axs[0], grid=True, linewidth=2, ylim=(0.01, 0.035))

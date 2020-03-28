@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.neighbors import LocalOutlierFactor
 from sklearn import metrics
-import seaborn as sns; sns.set()  # for plot styling
-from sklearn.metrics import silhouette_samples, silhouette_score
+import seaborn as sns; sns.set()  
 from sklearn.cluster import KMeans
 from sklearn import mixture
 from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import silhouette_samples, silhouette_score
 
 # preprocessing
 data = pd.read_csv(r'D:\Ms Data Science\ITC6003 Applied Machine learning\Project\Wholesale customers data.csv',header=0)
@@ -43,8 +43,8 @@ sns.violinplot(data=scaledData)
 outliers = LocalOutlierFactor(n_neighbors=20, contamination=.05)
 scaledData['inlier'] = outliers.fit_predict(scaledData)
 cleanData = scaledData.loc[scaledData.inlier==1, products]
-sns.pairplot(cleanData, plot_kws={'s': 5})
-plt.tight_layout();
+#sns.pairplot(cleanData, plot_kws={'s': 5})
+#plt.tight_layout();
 
 sns.clustermap(cleanData.corr(), 
                annot=True, fmt='.1%', center=0.0, 
@@ -65,7 +65,7 @@ for i, exp_var in enumerate(pca.explained_variance_ratio_):
     ax.text(i-.4, ax.get_ylim()[1] - .15, 
             'Explained\nVariance\n{:.2%}'.format(exp_var))
 plt.legend(loc=3)
-plt.tight_layout();
+plt.tight_layout()
 #plt.savefig('Weights.png',dpi=400,bbox_inches='tight')
 
 # PCA with 2 components
@@ -88,44 +88,46 @@ for i, component in enumerate(pca.components_.T):
             color='black', ha='center', va='center', fontsize=10)
 #plt.savefig('PCA_components.png',dpi=400,bbox_inches='tight')
 
-plt.figure(1)
-plt.scatter(reducedData[:,0], reducedData[:,1], s=20)
+#plt.figure(1)
+#plt.scatter(reducedData[:,0], reducedData[:,1], s=20)
 
-# KNN clustering
+# KMeans clustering
 
 inertiasAll=[]
 silhouettesAll=[]
 
-fig, axes =plt.subplots(4,3, figsize=(10,10), sharex=True)
-axes = axes.flatten()
-for n in range(2,12):
-    print ('Clustering for n=',n)
-    kmeans = KMeans(n_clusters=n)
+fig = plt.figure()
+for i in range(2,12):
+    kmeans = KMeans(n_clusters=i)
     kmeans.fit(reducedData)
     y_kmeans = kmeans.predict(reducedData)
     centers = kmeans.cluster_centers_
-    print ('inertia=',np.round(kmeans.inertia_,2))
     silhouette_values = silhouette_samples(reducedData, y_kmeans)
-    print ('silhouette=', np.round(np.mean(silhouette_values),3))    
     inertiasAll.append(kmeans.inertia_)
-    silhouettesAll.append(np.mean(silhouette_values))    
-    plt.figure()
-    plt.scatter(reducedData[:,0], reducedData[:,1], c=y_kmeans, s=20, cmap='viridis')
-    plt.scatter(centers[:,0], centers[:,1], c='black', s=100, alpha=0.5)
+    silhouettesAll.append(np.mean(silhouette_values))
+    if i<6:
+        ax = fig.add_subplot(2,2,i-1)
+        plt.scatter(reducedData[:,0], reducedData[:,1], c=y_kmeans, s=20, cmap='viridis')
+        plt.scatter(centers[:,0], centers[:,1], c='black', s=100, alpha=0.5)
+        plt.title("Clusters=%d"%i)
+plt.tight_layout()
+#plt.savefig('clusters.png',dpi=400,bbox_inches='tight')
 
 plt.figure(3)
 plt.plot(range(2,12),silhouettesAll,'r*-')
 plt.ylabel('Silhouette score')
 plt.xlabel('Number of clusters')
+#plt.savefig('silhouette.png',dpi=400,bbox_inches='tight')
 plt.figure(4)
 plt.plot(range(2,12),inertiasAll,'g*-')
 plt.ylabel('Inertia Score')
 plt.xlabel('Number of clusters')
+#plt.savefig('inertia.png',dpi=400,bbox_inches='tight')
 
 # GMM clustering
 for i in range(2,12):
     gmm = mixture.GaussianMixture(n_components=i, covariance_type='full').fit(reducedData)
-    print (gmm.score(reducedData))
+    print (round(gmm.score(reducedData),3))
 
 #DBscan
     
@@ -149,7 +151,6 @@ print('Estimated number of clusters: %d' % n_clusters_)
 print("Silhouette Coefficient: %0.3f"
       % metrics.silhouette_score(reducedData1, labels))
 
-# #############################################################################
 # Plot result
 # Black removed and is used for noise instead.
 

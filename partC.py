@@ -151,11 +151,11 @@ rmseLasso = mean_squared_error(y_cv, predLasso, squared=False)
 
 #------MAE
 
-mse = mean_absolute_error(y_cv, pred)
-msePCA = mean_absolute_error(y_cvPCA, predPCA)
-mseP = mean_absolute_error(y_cvP, predP)
-mseRidge = mean_absolute_error(y_cv, predRidge)
-mseLasso = mean_absolute_error(y_cv, predLasso)
+mae = mean_absolute_error(y_cv, pred)
+maePCA = mean_absolute_error(y_cvPCA, predPCA)
+maeP = mean_absolute_error(y_cvP, predP)
+maeRidge = mean_absolute_error(y_cv, predRidge)
+maeLasso = mean_absolute_error(y_cv, predLasso)
 
 # rmse  mean_squared_error(Ypca_test, PredLinearPCA, squared=False)
 

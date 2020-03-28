@@ -184,3 +184,4 @@ plt.savefig('Coefficients.png', bbox_inches='tight')
 #-----Interceptor List
 IntercList = [lregr.intercept_,lregrPCA.intercept_,regrPoly.intercept_,ridgeReg.intercept_,lassoReg.intercept_]
 
+plt.show()

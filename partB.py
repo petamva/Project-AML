@@ -86,10 +86,10 @@ for i, component in enumerate(pca.components_.T):
              head_width=0.2, head_length=0.2, linewidth=1, color='red')
     ax.text(component[0] * text_pos, component[1] * text_pos, products[i], 
             color='black', ha='center', va='center', fontsize=10)
-#plt.savefig('PCA_components.png',dpi=400,bbox_inches='tight')
+plt.savefig('PCA_components.png',dpi=400,bbox_inches='tight')
 
-#plt.figure(1)
-#plt.scatter(reducedData[:,0], reducedData[:,1], s=20)
+plt.figure(1)
+plt.scatter(reducedData[:,0], reducedData[:,1], s=20)
 
 # KMeans clustering
 

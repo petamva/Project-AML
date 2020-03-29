@@ -1,5 +1,4 @@
 
-
 import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
@@ -141,6 +140,7 @@ y_test_pred_DT2=clfDT2.predict(x_test)
 y_test_pred_NB=clfNB.predict(x_test)
 y_test_pred_NN=clfNN.predict(x_test)
 y_test_pred_NN2=clfNN2.predict(x_test)
+
 
 
 confMatrixTestANN=confusion_matrix(y_test, y_test_pred_ANN, labels=None)

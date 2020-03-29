@@ -92,8 +92,7 @@ buyRateDay['Weekday'] = buyRateDay['Weekday'].map(lambda n: WEEKDAY_TO_NAME[n])
 buyRateDay = buyRateDay.set_index('Weekday')
 buyRateDay.plot(ax=axs[1], kind='bar', legend=False, ylim=(0.01, 0.035), grid=True, sharey=True)
 
-plt.savefig('buyRate.png', bbox_inches='tight')
-
+#plt.savefig('buyRate.png', bbox_inches='tight')
 
 target=sessions['Purchase']
 
@@ -169,8 +168,6 @@ plt.ylabel('True Positive Rate')
 plt.title('Receiver operating characteristic example')
 plt.legend(loc="lower right")
 plt.savefig('ROC Curve.png',dpi=400,bbox_inches='tight')
-
-
 
 
 print('Decision Tree AUC=',round(auc(fprDT,tprDT),3))

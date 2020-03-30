@@ -12,7 +12,7 @@ The Project is divided in three parts:
 
 **Students responsible for the project:**
 
-- Petros Tamvakis
-- Vasileios Filippidis
-- Anastasios Katsaounis
+- Petros Tamvakis (parts B and D)
+- Vasileios Filippidis (part C)
+- Anastasios Katsaounis (part A)
 

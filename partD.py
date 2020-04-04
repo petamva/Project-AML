@@ -121,8 +121,8 @@ sessionsResampled = sessionsResampledNoBuy.append(sessionsBuy, ignore_index=True
 #--- Drop SessionId column
 sessionsResampled = sessionsResampled.drop(['SessionId'],1)
 
-target=sessions['Purchase']
-data=sessions.iloc[:,1:5]
+target=sessionsResampled['Purchase']
+data=sessionsResampled.iloc[:,1:5]
 
 #--- Normalize
 dataNorm = preprocessing.scale(data)

@@ -3,12 +3,12 @@
 
 **This is the final project for ITC6003**
 
-The Project is divided in three parts:
+The Project is divided in four parts:
 
 - Part A: Classification
 - Part B: Clustering
 - Part C: Regression
-- Part D: Predict buy
+- Part D: Predict buys
 
 **Students responsible for the project:**
 

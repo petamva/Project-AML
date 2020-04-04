@@ -38,7 +38,7 @@ dataReduced.info()
 sns.clustermap(dataReduced.iloc[:,1:].corr(), 
                annot=True, fmt='.1%', center=0.0, 
                vmin=-1, vmax=1, cmap=sns.diverging_palette(250, 10, n=20))
-
+plt.show()
 #-----Normalization
 
 dataProcessed = preprocessing.scale(dataReduced)
@@ -80,13 +80,21 @@ flierprops = dict(markerfacecolor='0.75', markersize=5, linestyle='none')
 whiskerprops = capprops = dict(c='white')
 sns.boxplot(data=dataProcessed, orient='horizontal', 
     flierprops=flierprops, whiskerprops=whiskerprops, capprops=capprops)
-
+plt.show()
 #------PCA
 
 c=7              
 pca = PCA(n_components=c,svd_solver='full')
 dataAfterPCA = pca.fit_transform(dataFeatures)
 print('Explained variance=',pca.explained_variance_ratio_.sum())
+
+ax = plt.figure(figsize=(12, 5)).gca(title='', 
+                                     xlabel='Distribution', ylabel='Features')
+flierprops = dict(markerfacecolor='0.75', markersize=5, linestyle='none')
+whiskerprops = capprops = dict(c='white')
+sns.boxplot(data=dataAfterPCA, orient='horizontal', 
+    flierprops=flierprops, whiskerprops=whiskerprops, capprops=capprops)
+plt.show()
 
 #-------- Create linear regression objects  
  
@@ -135,36 +143,61 @@ plt.title('Residual plot')
 
 #--------MSE
 
-mse = mean_squared_error(y_cv, pred)
-msePCA = mean_squared_error(y_cvPCA, predPCA)
-mseP = mean_squared_error(y_cvP, predP)
-mseRidge = mean_squared_error(y_cv, predRidge)
-mseLasso = mean_squared_error(y_cv, predLasso)
+mse = round(mean_squared_error(y_cv, pred),3)
+msePCA = round(mean_squared_error(y_cvPCA, predPCA),3)
+mseP = round(mean_squared_error(y_cvP, predP),3)
+mseRidge = round(mean_squared_error(y_cv, predRidge),3)
+mseLasso = round(mean_squared_error(y_cv, predLasso),3)
+
+print('Linear Regression mse= ', mse)
+print('Linear Regression after PCA mse= ', msePCA)
+print('Polynomial Regression mse= ', mseP)
+print('Ridge Regression mse= ', mseRidge)
+print('Lasso Regression mse= ', mseLasso)
+
 
 #--------RMSE
 
-rmse = mean_squared_error(y_cv, pred, squared=False)
-rmsePCA = mean_squared_error(y_cvPCA, predPCA, squared=False)
-rmseP = mean_squared_error(y_cvP, predP, squared=False)
-rmseRidge = mean_squared_error(y_cv, predRidge, squared=False)
-rmseLasso = mean_squared_error(y_cv, predLasso, squared=False)
+rmse = round(mean_squared_error(y_cv, pred, squared=False),3)
+rmsePCA = round(mean_squared_error(y_cvPCA, predPCA, squared=False),3)
+rmseP = round(mean_squared_error(y_cvP, predP, squared=False),3)
+rmseRidge = round(mean_squared_error(y_cv, predRidge, squared=False),3)
+rmseLasso = round(mean_squared_error(y_cv, predLasso, squared=False),3)
+
+print('Linear Regression rmse= ', rmse)
+print('Linear Regression after PCA rmse= ', rmsePCA)
+print('Polynomial Regression rmse= ', rmseP)
+print('Ridge Regression rmse= ', rmseRidge)
+print('Lasso Regression rmse= ', rmseLasso)
 
 #------MAE
 
-mae = mean_absolute_error(y_cv, pred)
-maePCA = mean_absolute_error(y_cvPCA, predPCA)
-maeP = mean_absolute_error(y_cvP, predP)
-maeRidge = mean_absolute_error(y_cv, predRidge)
-maeLasso = mean_absolute_error(y_cv, predLasso)
+mae = round(mean_absolute_error(y_cv, pred),3)
+maePCA = round(mean_absolute_error(y_cvPCA, predPCA),3)
+maeP = round(mean_absolute_error(y_cvP, predP),3)
+maeRidge = round(mean_absolute_error(y_cv, predRidge),3)
+maeLasso = round(mean_absolute_error(y_cv, predLasso),3)
 
-# rmse  mean_squared_error(Ypca_test, PredLinearPCA, squared=False)
+print('Linear Regression mae= ', mae)
+print('Linear Regression after PCA mae= ', maePCA)
+print('Polynomial Regression mae= ', maeP)
+print('Ridge Regression mae= ', maeRidge)
+print('Lasso Regression mae= ', maeLasso)
+
 
 #-----R2
-R2_Linear = r2_score(y_cv, pred)
-R2_LinearPCA = r2_score(y_cv, predPCA)
-R2_Poly = r2_score(y_cv, predP)
-R2_Ridge = r2_score(y_cv, predRidge)
-R2_Lasso = r2_score(y_cv, predLasso)
+R2_Linear = round(r2_score(y_cv, pred),3)
+R2_LinearPCA = round(r2_score(y_cv, predPCA),3)
+R2_Poly = round(r2_score(y_cv, predP),3)
+R2_Ridge = round(r2_score(y_cv, predRidge),3)
+R2_Lasso = round(r2_score(y_cv, predLasso),3)
+
+
+print('Linear Regression R2= ', R2_Linear)
+print('Linear Regression after PCA R2= ', R2_LinearPCA)
+print('Polynomial Regression R2= ', R2_Poly)
+print('Ridge Regression R2= ', R2_Ridge)
+print('Lasso Regression R2= ', R2_Lasso)
 
 
 #-----Coefficient List

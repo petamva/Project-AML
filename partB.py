@@ -113,21 +113,41 @@ for i in range(2,12):
 plt.tight_layout()
 #plt.savefig('clusters.png',dpi=400,bbox_inches='tight')
 
-plt.figure(3)
+plt.figure(2)
 plt.plot(range(2,12),silhouettesAll,'r*-')
 plt.ylabel('Silhouette score')
 plt.xlabel('Number of clusters')
 #plt.savefig('silhouette.png',dpi=400,bbox_inches='tight')
-plt.figure(4)
+plt.figure(3)
 plt.plot(range(2,12),inertiasAll,'g*-')
 plt.ylabel('Inertia Score')
 plt.xlabel('Number of clusters')
 #plt.savefig('inertia.png',dpi=400,bbox_inches='tight')
 
 # GMM clustering
+
+silhouetteGMM=[]
+aicGMM=[]
+bicGMM=[]
 for i in range(2,12):
     gmm = mixture.GaussianMixture(n_components=i, covariance_type='full').fit(reducedData)
-    print (round(gmm.score(reducedData),3))
+    pred=gmm.predict(reducedData)
+    bicGMM.append(round(gmm.bic(reducedData)))
+    aicGMM.append(round(gmm.aic(reducedData)))
+    silhouetteGMM.append(round(silhouette_score(reducedData, pred),3))
+
+plt.figure(4)
+plt.plot(range(2,12),silhouetteGMM,'r*-')
+plt.ylabel('Silhouette score')
+plt.xlabel('Number of clusters')
+#plt.savefig('silhouetteGMM.png',dpi=400,bbox_inches='tight')
+plt.figure(5)
+plt.plot(range(2,12),aicGMM,'r*-',label='AIC')
+plt.plot(range(2,12),bicGMM,'g*-',label='BIC')
+plt.ylabel('AIC-BIC')
+plt.xlabel('Number of clusters')
+plt.legend(loc='upper left', shadow=True, fontsize='x-large')
+#plt.savefig('aicBicGMM.png',dpi=400,bbox_inches='tight')
 
 #DBscan
     
@@ -154,7 +174,7 @@ print("Silhouette Coefficient: %0.3f"
 # Plot result
 # Black removed and is used for noise instead.
 
-plt.figure(1)
+plt.figure(6)
 
 unique_labels = set(labels)
 colors = [plt.cm.Spectral(each)
@@ -178,8 +198,4 @@ for k, col in zip(unique_labels, colors):
 
 plt.title('Estimated number of clusters: %d' % n_clusters_)
 plt.show()
-
-
-
-
 
